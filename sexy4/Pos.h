@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <map>
 #include "Items.h"
 #include "Report.h"
 using namespace std;
@@ -12,23 +13,43 @@ public:
 	{
 		items = itm;
 	}
+
+	Pos(map<string, Item> indexes, vector<string> items)
+	{
+		Items list;
+		for (string item : items)
+		{
+			list.Add(indexes[item]);
+		}
+		this->items = list;
+	}
+
 	void Display()
 	{
 		vector<Item> list = items.getlist();
 		Report report(list);
-		cout << "***ÉÌµê¹ºÎïÇåµ¥***" << endl;
+		cout << "***å•†åº—è´­ç‰©æ¸…å•***" << endl;
 		for (Items itemGroup : report.getItemGroupies()) {
-			cout << "Ãû³Æ£º" << itemGroup.groupName() << "£¬" <<
-				"ÊýÁ¿£º" << itemGroup.groupSize() << itemGroup.groupUnit() << "£¬" <<
-				"µ¥¼Û£º" << itemGroup.groupPrice() << "(Ôª)" << "£¬" <<
-				"Ð¡¼Æ£º" << itemGroup.subTotal() << "(Ôª)" << endl;
+			cout << "åç§°ï¼š" << itemGroup.groupName() << "ï¼Œ" <<
+				"æ•°é‡ï¼š" << itemGroup.groupSize() << itemGroup.groupUnit() << "ï¼Œ" <<
+				"å•ä»·ï¼š" << itemGroup.groupPrice() << "(å…ƒ)" << "ï¼Œ" <<
+				"å°è®¡ï¼š" << itemGroup.subTotal() << "(å…ƒ)" << endl;
+		}
+		if (report.hasPromotion()) {
+			cout << "----------------------" << endl;
+			cout << "æŒ¥æ³ªèµ é€å•†å“ï¼š" << endl;
+			for (Items itemGroup : report.getItemGroupies()){
+				if (itemGroup.groupPromotion()){
+					cout << "åç§°ï¼š" << itemGroup.groupName() << "ï¼Œ" << "æ•°é‡ï¼š" << 1 << itemGroup.groupUnit() << endl;
+				}
+			}
 		}
 		cout << "----------------------" << endl;
-		cout << "×Ü¼Æ£º" << report.getTotal() << "(Ôª)" << endl;
+		cout << "æ€»è®¡ï¼š" << report.getTotal() << "(å…ƒ)" << endl;
 
 		double saving = report.getSaving();
 		if (saving > 0) {
-			cout << "½ÚÊ¡£º" << saving << "(Ôª)" << endl;
+			cout << "èŠ‚çœï¼š" << saving << "(å…ƒ)" << endl;
 		}
 		cout << "**********************" << endl;
 	}
