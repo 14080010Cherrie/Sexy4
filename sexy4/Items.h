@@ -7,8 +7,10 @@ private:
 	string unit;
 	float price;
 	float discount;
+	bool promotion;
 public:
 	Item() {
+		setPromotion(false);
 		setDiscount(1);
 	}
 
@@ -18,6 +20,7 @@ public:
 		setUnit(unit);
 		setPrice(price);
 		setDiscount(1);
+		setPromotion(false);
 	}
 
 	Item(string barcode, string name, string unit, double price, double discount) {
@@ -26,6 +29,18 @@ public:
 		setUnit(unit);
 		setPrice(price);
 		setDiscount(discount);
+		setPromotion(false);
+	}
+
+	Item(string barcode, string name, string unit, double price, double discount, bool promotion) {
+		setBarcode(barcode);
+		setName(name);
+		setUnit(unit);
+		setPrice(price);
+		setDiscount(discount);
+		setPromotion(promotion);
+		if(promotion)
+			setDiscount(1);
 	}
 
 	string getName() {
@@ -49,6 +64,10 @@ public:
 		return discount;
 	}
 
+	bool getPromotion() {
+		return promotion;
+	}
+
 	void setBarcode(string s)
 	{
 		barcode = s;
@@ -69,6 +88,12 @@ public:
 
 	void setDiscount(double v) {
 		discount = v;
+	}
+
+	void setPromotion(bool v) {
+		promotion = v;
+		if (v)
+			setDiscount(1);
 	}
 };
 
@@ -96,33 +121,52 @@ public:
 	{
 		return list;
 	}
-	string groupName() {
+	string groupName()
+	{
 		return list[0].getName();
 	}
 
-	int groupSize() {
+	int groupSize()
+	{
 		return list.size();
 	}
 
-	string groupUnit() {
+	string groupUnit()
+	{
 		return list[0].getUnit();
 	}
 
-	double groupPrice() {
+	double groupPrice()
+	{
 		return list[0].getPrice();
 	}
 
-	double subTotal() {
+	bool groupPromotion()
+	{
+		if (list.size() >= 3 && list[0].getPromotion())
+		{
+			return true;
+		}
+		return false;
+	}
+
+	double subTotal()
+	{
 		double result = 0.00;
 		for (Item item : list)
 			result += item.getPrice() * item.getDiscount();
+		if (groupPromotion())
+			result -= list[0].getPrice();
 		return result;
 	}
 
-	double saving() {
+	double saving()
+	{
 		double result = 0.00;
 		for (Item item : list)
 			result += item.getPrice() * (1 - item.getDiscount());
+		if (groupPromotion())
+			result += list[0].getPrice();
 		return result;
 	}
 };
