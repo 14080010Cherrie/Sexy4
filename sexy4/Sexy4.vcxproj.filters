@@ -7,7 +7,7 @@
     </Filter>
     <Filter Include="头文件">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
     <Filter Include="资源文件">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
@@ -24,16 +24,19 @@
     <ClInclude Include="targetver.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="item.h">
+    <ClInclude Include="minijson_reader.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="itemmanage.h">
+    <ClInclude Include="paraser.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="exception.h">
+    <ClInclude Include="Items.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="buy.h">
+    <ClInclude Include="Pos.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Report.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -42,15 +45,6 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Sexy4.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="item.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="itemmanage.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="buy.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
