@@ -1,4 +1,4 @@
-// Sexy4.cpp : ¶¨Òå¿ØÖÆÌ¨Ó¦ÓÃ³ÌĞòµÄÈë¿Úµã¡£
+// Sexy4.cpp : å®šä¹‰æ§åˆ¶å°åº”ç”¨ç¨‹åºçš„å…¥å£ç‚¹ã€‚
 //
 
 #include "stdafx.h"
@@ -6,6 +6,7 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <map>
 
 #include "minijson_reader.hpp"
 #include "paraser.h"
@@ -15,18 +16,69 @@ using namespace minijson;
 
 int main()
 {
-	//ifstream ifs("in.json", ios::in);	//²âÊÔ1
-	ifstream ifs("in2.json", ios::in);	//²âÊÔ2
+	/*//æµ‹è¯•1
+	ifstream ifs("in.json", ios::in);	
+	istreambuf_iterator<char> beg(ifs), end;
+	string source(beg, end);
+	ifs.close();
+	char * a = (char*)source.data();
+	Items items = Decode(a);
+	Pos pos(items);
+	pos.Display();
+	*/
+
+	/*//æµ‹è¯•2
+	ifstream ifs("in2.json", ios::in);	
+	istreambuf_iterator<char> beg(ifs), end;
+	string source(beg, end);
+	ifs.close();
+	char * a = (char*)source.data();
+	Items items = Decode(a);
+	Pos pos(items);
+	pos.Display();
+	*/
+
+	//æµ‹è¯•3
+	ifstream ifs("in3index.json", ios::in);
 	istreambuf_iterator<char> beg(ifs), end;
 	string source(beg, end);
 	ifs.close();
 
+	ifstream ifs2("in3items.json", ios::in);
+	istreambuf_iterator<char> beg2(ifs2), end2;
+	string source2(beg2, end2);
+	ifs2.close();
+
 	char * a = (char*)source.data();
-	Items items = Decode(a);
+	char * b = (char*)source2.data();
 
-	Pos pos(items);
+	map<string,Item> indexes =  DecodeIndex(a);
+	vector<string> items = DecodeItems(b);
+
+	Pos pos(indexes, items);
 	pos.Display();
+	
+	/*//æµ‹è¯•4
+	ifstream ifs("in4index.json", ios::in);
+	istreambuf_iterator<char> beg(ifs), end;
+	string source(beg, end);
+	ifs.close();
 
+	ifstream ifs2("in4items.json", ios::in);
+	istreambuf_iterator<char> beg2(ifs2), end2;
+	string source2(beg2, end2);
+	ifs2.close();
+
+	char * a = (char*)source.data();
+	char * b = (char*)source2.data();
+
+	map<string, Item> indexes = DecodeIndex(a);
+	vector<string> items = DecodeItems(b);
+
+	Pos pos(indexes, items);
+	pos.Display();
+	*/
+	system("pause");
 	return 0;
 }
 
