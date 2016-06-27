@@ -16,7 +16,8 @@ private:
 		return map;
 	}
 public :
-	Report(vector<Items> items) {
+	Report(vector<Items> items)
+	{
 		itemGroupies = items;
 	}
 
@@ -24,16 +25,21 @@ public :
 	{
 		map<string, vector<Item>> mapper = groupByItemBarCode(items);
 		map<string, vector<Item>>::iterator  iter;
-
 		for (iter = mapper.begin(); iter != mapper.end(); iter++)
-		{
 			itemGroupies.push_back(iter->second);
-		}
 	}
 
 	vector<Items> getItemGroupies()
 	{
 		return itemGroupies;
+	}
+
+	bool hasPromotion()
+	{
+		bool result = false;
+		for (Items itemGroup : itemGroupies)
+			result |= itemGroup.groupPromotion();
+		return result;
 	}
 
 	double getTotal()
